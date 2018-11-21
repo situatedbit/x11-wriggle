@@ -1,6 +1,8 @@
 
-# columns are 1-based. The start coordinate of the left-most column is 0; it is column 1.
+# columns are 0-based. The starting coordinate of column 0 is 0.
 class Columns
+  attr_reader :width
+
   def initialize(params = {})
     @width = params.fetch(:width)
   end
@@ -11,6 +13,6 @@ class Columns
   end
 
   def start(column)
-    column > 0 ? ((column - 1) * @width) : (column * @width)
+    column * @width
   end
 end
