@@ -2,24 +2,22 @@ class Stretch
   def initialize(params = {})
     @window = params.fetch(:window)
     @to_right = params.fetch(:to_right, true)
-    @columns = params.fetch(:columns)
+    @layout = params.fetch(:layout)
   end
 
   def left
-    @to_right ? -1 : @columns.start(@columns.snap_right(@window.left) - 1)
+    @to_right ? @window.left : @layout.column(@window.left - 1).left
   end
 
   def right
+    @to_right ? @layout.column(@window.right + 1).right : @window.right
   end
 
   def width
+    right - left
   end
 
   def height
-  end
-
-  private
-  def column(x)
-      (x * @columns) / @screen.width
+    -1
   end
 end
