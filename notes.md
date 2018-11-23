@@ -1,3 +1,14 @@
+# Status
+## stretch
+  try to figure out how to get window position and geometry that considers window decoration
+  parse the window commands
+->
+  generate wmctrl command from Stretch
+  parse + run stretch command
+## center
+# three columns
+# four columns
+
 xdotool
 wmctrl
 
@@ -58,7 +69,7 @@ SCREEN=0
 
 Get border width (left, right, top, bottom)
 ```
-mschaefer@victoria:$ xprop _NET_FRAME_EXTENTS -id 75501325
+mschaefer@victoria:$ xprop _NET_FRAME_EXTENTS -id $(xdotool getactivewindow)
 _NET_FRAME_EXTENTS(CARDINAL) = 1, 1, 24, 1
 ```
 
@@ -70,6 +81,23 @@ mschaefer@victoria:$ wmctrl -p -G -l
 0x04800004  0 16205  44   48   657  740  victoria Terminal - mschaefer@victoria: ~/data/development/windows
 0x04a00001  0 16646  706  48   660  743  victoria notes.md — ~/src/windows — Atom
 0x048003a7  0 16205  314  48   1049 740  victoria Terminal - mschaefer@victoria: ~/data/development/windows
+```
+
+Get window size with xwininfo
+borders come from xprop!
+  -> absolute upper left y, x are for the content within the border.
+  -> width is also for the content within the border
+  screen x = border left + absolute x
+  screen y = border top + absolute y
+  screen width = border left + border right + width
+  screen height = border top + bottom + height
+```
+Absolute upper-left X:  0
+Absolute upper-left Y:  0
+Relative upper-left X:  0
+Relative upper-left Y:  0
+Width: 1366
+Height: 768
 ```
 
 Get display size:
