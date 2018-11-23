@@ -1,19 +1,17 @@
 require 'parser'
 
 class Window
-  include Parser
+  def self.active
+    window = Parser.parse_window(`xwininfo -id $(xdotool getactivewindow)`)
 
-  def self.active()
-      active_window = parse_xdotool_active_window(`xdotool getactivewindow`)
+    borders = Parser.parse_borders(`xprop _NET_FRAME_EXTENTS -id $(xdotool getactivewindow)`)
 
-      window_geometry = parse_xdotool_geometry(`xdotool getwindowgeometry --shell #{active_window}`)
-
-      borders = parse_xprop_frame_extensions(`xprop _NET_FRAME_EXTENTS -id #{active_window}`)
-
-      Window.new(
-        x: window_geometry.x,
-        y: window_geometry.
-      )
+    Window.new(
+      x: window.x - borders.left,
+      y: window.y - borders.top,
+      width: borders.left + window.width + borders.right,
+      height: borders.top + window.height + borders.bottom,
+    )
   end
 
   def initialize(params = {})
