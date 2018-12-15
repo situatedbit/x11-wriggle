@@ -1,4 +1,4 @@
-require 'column'
+require_relative 'column'
 
 # columns are 0-based. The starting coordinate of column 0 is 0.
 # Values are clipped that fall outside the width of the layout.

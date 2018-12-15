@@ -1,4 +1,4 @@
-require 'parser'
+require_relative 'parser'
 
 class Window
   def self.active
@@ -7,10 +7,10 @@ class Window
     borders = Parser.parse_borders(`xprop _NET_FRAME_EXTENTS -id $(xdotool getactivewindow)`)
 
     Window.new(
-      x: window.x - borders.left,
-      y: window.y - borders.top,
-      width: borders.left + window.width + borders.right,
-      height: borders.top + window.height + borders.bottom,
+      x: window[:x] - borders[:left],
+      y: window[:y] - borders[:top],
+      width: borders[:left] + window[:width] + borders[:right],
+      height: borders[:top] + window[:height] + borders[:bottom]
     )
   end
 

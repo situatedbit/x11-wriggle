@@ -9,6 +9,9 @@
 # `([ ][ ]) -> ([][  ])`
 
 require 'optparse'
+require_relative 'lib/windows'
+require_relative 'lib/stretch'
+require_relative 'lib/column_layout'
 
 options = {}
 OptionParser.new do |opts|
@@ -25,13 +28,13 @@ OptionParser.new do |opts|
 	end
 end.parse!
 
-puts options[:direction]
+direction = options[:direction]
 columns = 10
 
-def stretch_command(window, direction)
-    
-end
+stretch = Stretch.new(
+  window: Window.active,
+  to_right: direction == 'right',
+  layout: ColumnLayout.new(count: columns, width: 800)
+)
 
-command = stretch_command(window, direction)
-
-`#{command}`
+puts stretch.inspect
