@@ -2,8 +2,9 @@
 ## stretch
   try to figure out how to get window position and geometry that considers window decoration
   parse the window commands
-->
   generate wmctrl command from Stretch
+->
+  need to get the screen
   parse + run stretch command
 ## center
 # three columns
