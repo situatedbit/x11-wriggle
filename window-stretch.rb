@@ -9,9 +9,11 @@
 # `([ ][ ]) -> ([][  ])`
 
 require 'optparse'
-require_relative 'lib/windows'
-require_relative 'lib/stretch'
+
 require_relative 'lib/column_layout'
+require_relative 'lib/display'
+require_relative 'lib/stretch'
+require_relative 'lib/windows'
 require_relative 'lib/wmctrl_command'
 
 options = {}
@@ -35,11 +37,9 @@ columns = 10
 stretch = Stretch.new(
   window: Window.active,
   to_right: direction == 'right',
-  layout: ColumnLayout.new(count: columns, width: 800)
+  layout: ColumnLayout.new(count: columns, width: Display.root.width)
 )
-
-puts stretch.inspect
 
 command = WmctrlCommand.new(left: stretch.left, right: stretch.right, width: stretch.width, height: stretch.height)
 
-puts command.to_s
+puts command
