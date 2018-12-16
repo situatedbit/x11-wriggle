@@ -12,6 +12,7 @@ require 'optparse'
 require_relative 'lib/windows'
 require_relative 'lib/stretch'
 require_relative 'lib/column_layout'
+require_relative 'lib/wmctrl_command'
 
 options = {}
 OptionParser.new do |opts|
@@ -38,3 +39,7 @@ stretch = Stretch.new(
 )
 
 puts stretch.inspect
+
+command = WmctrlCommand.new(left: stretch.left, right: stretch.right, width: stretch.width, height: stretch.height)
+
+puts command.to_s
