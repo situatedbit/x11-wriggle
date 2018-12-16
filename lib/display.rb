@@ -11,4 +11,8 @@ class Display
     @width = params.fetch(:width)
     @height = params.fetch(:height)
   end
+
+  def to_s
+    "display width: #{width}, height: #{height}"
+  end
 end

@@ -23,6 +23,12 @@ class ColumnLayout
     @columns[column_index(x)]
   end
 
+  def to_s
+    list = @columns.map { |c| "[#{c.left},#{c.right}]" }.join ' '
+
+    "columns #{list}"
+  end
+
   private
   def column_left(index)
     (index * @width / @count.to_f).floor

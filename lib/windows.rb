@@ -28,4 +28,8 @@ class Window
   def right
     @x + @width
   end
+
+  def to_s
+    "window left: #{left}, right: #{right}, width: #{@width}, height: #{@height}"
+  end
 end
