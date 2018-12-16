@@ -128,4 +128,64 @@ describe :Parser do
       expect(Parser.parse_borders(output)[:bottom]).to eq(100)
     end
   end
+
+  describe :parse_display do
+    it 'throws an exception if it cannot parse the output' do
+      expect { Parser.parse_display '' }.to raise_error(Parser::ParserError)
+    end
+
+    it 'parses width' do
+      output = <<~STDOUT
+        Absolute upper-left X:  0
+        Absolute upper-left Y:  0
+        Relative upper-left X:  0
+        Relative upper-left Y:  0
+        Width: 43
+        Height: 768
+        Depth: 24
+        Visual: 0x20
+        Visual Class: TrueColor
+        Border width: 0
+        Class: InputOutput
+        Colormap: 0x22 (installed)
+        Bit Gravity State: ForgetGravity
+        Window Gravity State: NorthWestGravity
+        Backing Store State: NotUseful
+        Save Under State: no
+        Map State: IsViewable
+        Override Redirect State: no
+        Corners:  +0+0  -0+0  -0-0  +0-0
+        -geometry 1366x768+0+0
+      STDOUT
+
+      expect(Parser.parse_display(output)[:width]).to eq(43)
+    end
+
+    it 'parses height' do
+      output = <<~STDOUT
+        Absolute upper-left X:  0
+        Absolute upper-left Y:  0
+        Relative upper-left X:  0
+        Relative upper-left Y:  0
+        Width: 43
+        Height: 768
+        Depth: 24
+        Visual: 0x20
+        Visual Class: TrueColor
+        Border width: 0
+        Class: InputOutput
+        Colormap: 0x22 (installed)
+        Bit Gravity State: ForgetGravity
+        Window Gravity State: NorthWestGravity
+        Backing Store State: NotUseful
+        Save Under State: no
+        Map State: IsViewable
+        Override Redirect State: no
+        Corners:  +0+0  -0+0  -0-0  +0-0
+        -geometry 1366x768+0+0
+      STDOUT
+
+      expect(Parser.parse_display(output)[:height]).to eq(768)      
+    end
+  end
 end
