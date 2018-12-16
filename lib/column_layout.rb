@@ -16,7 +16,7 @@ class ColumnLayout
     return 0 if x < 0
     return @columns.size - 1 if x >= @width
 
-    @columns.find_index { |column| column.includes x }
+    @columns.find_index { |column| column.include? x }
   end
 
   def column(x)

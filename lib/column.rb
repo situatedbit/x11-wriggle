@@ -6,7 +6,7 @@ class Column
     @right = right
   end
 
-  def includes(x)
+  def include?(x)
     @left <= x and x <= @right
   end
 end
