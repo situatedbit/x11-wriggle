@@ -3,7 +3,7 @@ require 'optparse'
 require_relative 'lib/column_layout'
 require_relative 'lib/display'
 require_relative 'lib/stretch'
-require_relative 'lib/windows'
+require_relative 'lib/window'
 require_relative 'lib/wmctrl_command'
 
 class WindowStretchError < StandardError
@@ -59,8 +59,10 @@ begin
   end
 
   `#{stretch.command}` unless is_dry_run
+
 rescue OptionParser::InvalidOption => e
   puts e.message
+
 rescue WindowStretchError => e
   puts e.message
 end
