@@ -3,9 +3,17 @@
   try to figure out how to get window position and geometry that considers window decoration
   parse the window commands
   generate wmctrl command from Stretch
-->
   need to get the screen
   parse + run stretch command
+  compress action: tests for stretch
+  compress action: parse command line
+  keyboard shortcuts:
+    expand left: super + [
+    expand right: super + ]
+    compress left: Shift + super + [
+    compress right: Shift + super + ]
+->
+  bug: compress right gets stuck.
 ## center
 # three columns
 # four columns
