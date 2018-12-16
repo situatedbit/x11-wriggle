@@ -1,3 +1,5 @@
+require_relative 'wmctrl_command'
+
 class Stretch
   def initialize(params = {})
     @window = params.fetch(:window)
@@ -17,7 +19,7 @@ class Stretch
     right - left
   end
 
-  def height
-    -1
+  def command
+    WmctrlCommand.new(x: left, width: width)
   end
 end

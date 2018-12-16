@@ -1,13 +1,3 @@
-#  stretch
-# ```
-# stretch --left
-# stretch --right (default)
-# ```
-#
-# The increments would probably have to be divisions of display size (maybe, 10%?), so I could easily apply the opposite operation to an adjacent window to complete the tiling
-#
-# `([ ][ ]) -> ([][  ])`
-
 require 'optparse'
 
 require_relative 'lib/column_layout'
@@ -20,9 +10,16 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: window-stretch [-d DIRECTION]"
 
-  options[:direction] = 'right'
   opts.on('-d', '--direction DIRECTION', 'left or right (default: right)') do |direction|
     options[:direction] = direction
+  end
+
+  opts.on('-r', '--dry-run', 'do not move window') do |dry_run|
+    options[:dry_run] = true
+  end
+
+  opts.on('-v', '--verbose', 'enable verbose') do |debug|
+    options[:verbose] = true
   end
 
   opts.on('-h', '--help', 'Displays help') do
@@ -31,15 +28,26 @@ OptionParser.new do |opts|
 	end
 end.parse!
 
-direction = options[:direction]
 columns = 10
+direction = options.fetch :direction, 'right'
+be_verbose = options.fetch :verbose, false
+is_dry_run = options.fetch :dry_run, false
+
+display = Display.root
+layout = ColumnLayout.new(count: columns, width: display.width)
+window = Window.active
 
 stretch = Stretch.new(
-  window: Window.active,
+  window: window,
   to_right: direction == 'right',
-  layout: ColumnLayout.new(count: columns, width: Display.root.width)
+  layout: layout
 )
 
-command = WmctrlCommand.new(left: stretch.left, right: stretch.right, width: stretch.width, height: stretch.height)
+if be_verbose
+  puts window
+  puts display
+  puts layout
+  puts stretch.command
+end
 
-puts command
+`#{stretch.command}` unless is_dry_run
